@@ -1,13 +1,8 @@
-provider "nixpacks"
-
 [phases.setup]
-nixPkgs = ["python313", "gcc", "postgresql"]
+nixPkgs = ["python313", "gcc"]
 
 [phases.install]
 cmds = ["cd backend && pip install -r requirements.txt"]
 
-[phases.build]
-cmds = ["cd backend && python -c 'import app'"]
-
 [start]
-cmd = "cd backend && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+cmd = "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"

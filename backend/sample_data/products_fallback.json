@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Valencia Fabric Sofa 3 Seater",
+    "price": 8999,
+    "description": "Elegant 3-seater sofa with plush fabric upholstery. Perfect for modern living rooms, combines comfort with contemporary design.",
+    "features": ["3 seater capacity", "Fabric upholstery", "Wooden frame", "Easy assembly", "Modern design"],
+    "image_url": "https://via.placeholder.com/400x300/4A90E2/FFFFFF?text=Valencia+Sofa",
+    "category": "Living Room",
+    "brand": "Furlenco",
+    "availability": true
+  },
+  {
+    "id": 2,
+    "title": "Archer Queen Bed with Storage",
+    "price": 12999,
+    "description": "Queen-size bed with built-in storage compartments. Maximize your bedroom space with this practical and stylish bed frame.",
+    "features": ["Queen size", "Under-bed storage", "Solid wood", "Hydraulic lift mechanism", "Space-saving"],
+    "image_url": "https://via.placeholder.com/400x300/E74C3C/FFFFFF?text=Archer+Bed",
+    "category": "Bedroom",
+    "brand": "Furlenco",
+    "availability": true
+  },
+  {
+    "id": 3,
+    "title": "Dining Table 4 Seater with Chairs",
+    "price": 15999,
+    "description": "Complete dining set with a sturdy table and 4 matching chairs. Ideal for small families and apartment living.",
+    "features": ["4 seater set", "Solid wood table", "Cushioned chairs", "Modern design", "Easy to clean"],
+    "image_url": "https://via.placeholder.com/400x300/F39C12/FFFFFF?text=Dining+Set",
+    "category": "Dining Room",
+    "brand": "Furlenco",
+    "availability": true
+  },
+  {
+    "id": 4,
+    "title": "Study Table with Chair",
+    "price": 6999,
+    "description": "Compact study desk with ergonomic chair. Perfect for home office or student workspace with ample storage.",
+    "features": ["Compact design", "Built-in drawers", "Cable management", "Ergonomic chair included", "Sturdy construction"],
+    "image_url": "https://via.placeholder.com/400x300/9B59B6/FFFFFF?text=Study+Table",
+    "category": "Home Office",
+    "brand": "Furlenco",
+    "availability": true
+  },
+  {
+    "id": 5,
+    "title": "Wardrobe 3 Door with Mirror",
+    "price": 18999,
+    "description": "Spacious 3-door wardrobe with full-length mirror. Organize your clothes with multiple shelves and hanging space.",
+    "features": ["3 door design", "Full-length mirror", "Multiple compartments", "Hanging rod", "Durable laminate finish"],
+    "image_url": "https://via.placeholder.com/400x300/1ABC9C/FFFFFF?text=Wardrobe",
+    "category": "Bedroom",
+    "brand": "Furlenco",
+    "availability": true
+  },
+  {
+    "id": 6,
+    "title": "Coffee Table with Storage",
+    "price": 4999,
+    "description": "Modern coffee table with hidden storage compartment. Keep your living room tidy while adding a stylish centerpiece.",
+    "features": ["Hidden storage", "Tempered glass top", "Wooden frame", "Easy to assemble", "Scratch resistant"],
+    "image_url": "https://via.placeholder.com/400x300/34495E/FFFFFF?text=Coffee+Table",
+    "category": "Living Room",
+    "brand": "Furlenco",
+    "availability": true
+  }
+]

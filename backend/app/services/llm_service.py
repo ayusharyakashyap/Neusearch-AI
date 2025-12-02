@@ -1,22 +1,29 @@
 import os
-import openai
 from typing import List, Dict, Any, Optional
 import logging
 import json
+
+# Optional OpenAI import - gracefully handle if not available
+try:
+    import openai
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+    openai = None
 
 logger = logging.getLogger(__name__)
 
 class LLMService:
     def __init__(self):
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        if self.openai_api_key:
+        if self.openai_api_key and OPENAI_AVAILABLE:
             openai.api_key = self.openai_api_key
         
     def interpret_query_and_recommend(self, user_query: str, relevant_products: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Use LLM to interpret user query and provide recommendations"""
         try:
-            if not self.openai_api_key:
-                # Fallback response when OpenAI API key is not available
+            if not self.openai_api_key or not OPENAI_AVAILABLE:
+                # Fallback response when OpenAI API key is not available or library not installed
                 return self._fallback_recommendation(user_query, relevant_products)
             
             # Create product context for LLM

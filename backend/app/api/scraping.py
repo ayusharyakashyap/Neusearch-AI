@@ -16,9 +16,9 @@ class ScrapeRequest(BaseModel):
 
 @router.post("/")
 async def trigger_scraping(background_tasks: BackgroundTasks, request: ScrapeRequest):
-    """Trigger product scraping"""
+    """Trigger product scraping or load fallback data"""
     background_tasks.add_task(scrape_and_store_products, request.max_products, request.use_fallback)
-    return {"message": "Scraping started in background"}
+    return {"status": "fallback_data_loaded", "message": "Loading demo products in background"}
 
 def scrape_and_store_products(max_products: int = 30, use_fallback: bool = False):
     """Scrape products and store them in database and vector store"""

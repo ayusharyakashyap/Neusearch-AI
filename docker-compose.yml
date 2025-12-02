@@ -2,48 +2,52 @@ version: '3.8'
 
 services:
   # PostgreSQL Database
-  postgres:
-    image: postgres:15
+  db:
+    image: postgres:15-alpine
     environment:
-      POSTGRES_DB: neusearch_db
-      POSTGRES_USER: neusearch
-      POSTGRES_PASSWORD: neusearch_password
+      POSTGRES_DB: ${POSTGRES_DB:-neusearch_db}
+      POSTGRES_USER: ${POSTGRES_USER:-neusearch}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-neusearch_dev_password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U neusearch"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-neusearch}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Backend API
   backend:
     build: ./backend
     environment:
-      DATABASE_URL: postgresql://neusearch:neusearch_password@postgres:5432/neusearch_db
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-neusearch}:${POSTGRES_PASSWORD:-neusearch_dev_password}@db:5432/${POSTGRES_DB:-neusearch_db}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}  # Optional - fallback mode works without it
       CHROMA_PERSIST_DIRECTORY: /app/chroma_db
     volumes:
+      - ./backend:/app
       - chroma_data:/app/chroma_db
     ports:
       - "8000:8000"
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
     restart: unless-stopped
+    command: bash start.sh
 
-  # Frontend
+  # Frontend (Development Mode)
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
     depends_on:
       - backend
     restart: unless-stopped
-    environment:
-      REACT_APP_API_URL: http://localhost:8000/api
 
 volumes:
   postgres_data:

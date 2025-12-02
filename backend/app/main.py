@@ -19,10 +19,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS
+# Configure CORS - Allow all origins for easy deployment
+# SECURITY NOTE: In production, replace ["*"] with your actual frontend domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # React app
+    allow_origins=["*"],  # Allow all origins for demo - lock down in production!
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,7 +40,11 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy"}
+    return {"status": "ok"}
+
+@app.get("/api/health")
+async def api_health_check():
+    return {"status": "ok"}
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,4 +1,4 @@
-# Backend Dockerfile
+# Backend Dockerfile - Production Ready
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -7,6 +7,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
@@ -16,11 +17,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Create directories for data persistence
-RUN mkdir -p /app/chroma_db
+# Make start script executable
+RUN chmod +x start.sh
 
-# Expose port
+# Create directories for data persistence
+RUN mkdir -p /app/chroma_db /app/sample_data
+
+# Expose port (will be overridden by $PORT on cloud platforms)
 EXPOSE 8000
 
-# Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run startup script (seeds DB and starts server)
+CMD ["bash", "start.sh"]
